@@ -1,0 +1,125 @@
+tfoot input {
+    width: 100%;
+    padding: 1px;
+    box-sizing: border-box;
+}
+
+p, table {
+    font-family: Arial;
+}
+
+#paymenttable {
+    font-family: Arial;
+    font-size: 85%;
+}
+
+#paymenttable thead th, #paymenttable thead td, #paymenttable tr td {
+    padding: 2px 0;
+    border: 0;
+}
+
+#DivDatatable {
+    /*width: 50%;*/
+}
+
+/*.TableForm {*/
+    /*margin: auto;*/
+/*}*/
+
+/*.TableForm tr:hover{*/
+    /*background-color: #f5f5f5;*/
+/*}*/
+
+.container, .black {
+    color: #000000;
+}
+
+.center{
+    text-align: center;
+    margin: auto;
+}
+
+.DivForm input[type=text],.DivForm select {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 1px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 100%;
+}
+
+#ShowAddOrEditForm {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    margin: 2px 0;
+    background-color: #e8e8e8;
+    /*border: 1px solid black;*/
+    padding: 6px 10px;
+    border-radius: 4px;
+}
+
+#ShowAddOrEditForm:hover {
+    background-color: white;
+}
+
+#addRow, #Reset, #EditRow {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 10px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 100%;
+}
+
+#addRow:hover, #Reset:hover, #EditRow:hover {
+    background-color: #45a049;
+}
+
+#AddOrEdit {
+    position: absolute;
+    left:300px;
+    top:300px;
+    box-shadow:2px 2px 5px #000;
+}
+
+.DivForm, .DivTable {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.DivForm {
+    width: 50%;
+    font-size: 85%;
+}
+
+.DivForm p{
+    /*color: #3BB69E;*/
+    /*margin: 0;*/
+    line-height:0.5;
+}
+
+#loading_div {
+    position: relative;
+    bottom: 500px;
+}
+
+#Close {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    position: absolute;
+    right: 5%;
+    top: 10px;
+    width:30px;
+    height:30px;
+}
+
+#Close:hover{
+    opacity: 1.0;
+    filter: alpha(opacity=100);
+}

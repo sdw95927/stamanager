@@ -1,0 +1,8 @@
+.bigbutton {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.bigbutton:hover {
+    background-color: #e8a520;
+}
