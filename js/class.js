@@ -3,8 +3,9 @@
  */
 //global var
 var $username;
+var ImageClass;
 
-$(function() {
+$(function () {
     $("#navmanagement").addClass("current");
 });
 
@@ -97,7 +98,7 @@ function EnableEditing(id) {
                     $(selectcardtype).hide();
                 } else if (result[3] == "") { //no check No.; is card
                     paymenttypes[2].checked = true;
-                    switch (result[2]){
+                    switch (result[2]) {
                         case "Debit":
                             cardtypes[0].checked = true;
                             break;
@@ -112,29 +113,16 @@ function EnableEditing(id) {
                             break;
                     }
                     $(inputcheckno).hide();
-                    $(selectcardtype ).show();
+                    $(selectcardtype).show();
                 } else {//is check
                     paymenttypes[1].checked = true;
                     $("#CheckNo").val(result[3]);
                     $(inputcheckno).show();
-                    $(selectcardtype ).hide();
+                    $(selectcardtype).hide();
                 }
                 $("#StudentName").val(result[5]);
 
-                //select classID
-                //$("select[name=ClassID]").val(); //6
-                //var selectclassid = "#SelectClassID";
-//                        var sel = document.getElementsByName("ClassID");
-//                        alert(sel);
-//                        var j = sel.length;
-//                        for(i = 0; i < j; ++i) {
-//                            if(sel.options[i].innerHTML === result[6]) {
-//                                sel.selectedIndex = i;
-//                                break;
-//                            }
-//                        }
-                document.getElementById('SelectClassID').value=result[6];
-                //document.getElementById(selectclassid).selectedIndex=result[6];
+                document.getElementById('SelectClassID').value = result[6];
 
                 $("#ReceiverName").val(result[7]);
 
@@ -145,34 +133,6 @@ function EnableEditing(id) {
                 $("#AddOrEdit").show();
                 $("#ShowAddOrEditForm").html("Hide edit form");
 
-
-//                            var flag = msg.substring(0, 8);
-//                            var firstname = msg.substring(9)
-
-//                            if (flag == "successY") {
-//
-//                                $('#login').hide();
-//                                $('#logout').show();
-//                                $('#login_showname').text('Hello, Admin');
-//                                $("#loginForm").hide();
-//                                $("#registerForm").hide();
-//                                $("#recommended_products").fadeIn();
-//                                Category_Admin();
-//                                Search_Admin();
-//                           }
-//                            else if (flag == "successN") {
-//                                $('#login').hide();
-//                                $('#logout').show();
-//                                $('#login_showname').text('Hello, ' + firstname);
-//                                $("#loginForm").hide();
-//                                $("#registerForm").hide();
-//                                $("#recommended_products").fadeIn();
-//                                Category_GeneralUser();
-//                                Search_GeneralUser();
-//                           }
-//                            else {
-//                                $('#error_msg').text('The username or password you entered is incorrect. Please try again.');
-//                            }
                 $('#loading_div').hide();
             },
             error: function (xhr) {
@@ -186,86 +146,236 @@ function EnableEditing(id) {
 }
 //------- end for editing form -------
 
-<!--  datatable code  -->
-//        var editor;
+//-------datatable funtion------
+function getimageclass(ID) {
+    // var xhttp;
+    // if (window.XMLHttpRequest) {
+    //     // code for IE7+, Firefox, Chrome, Opera, Safari
+    //     xmlhttp = new XMLHttpRequest();
+    // } else { // code for IE6, IE5
+    //     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    // }
+    // xmlhttp.onreadystatechange = function () {
+    //     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+    //         ImageClass = xmlhttp.responseText;
+    //         alert("miaoji");
+    //         alert(ImageClass);
+    //     }
+    // };
+    // xmlhttp.open("GET", "get_class_image.php?ID=" + ID, true);
+    // xmlhttp.send();
+    return $.ajax({
+        url: "get_class_image.php",
+        data: "ID=" + ID,
+        type: "GET",
+        beforeSend: function () {
+            $('#loading_div').show();
+        },
+        success: function (msg) {
+            alert("successfully retrived image!");
+            ImageClass = msg;
+            $('#loading_div').hide();
+        }
+    })
+}
+
+function format(d) {
+    // `d` is the original data object for the row
+    // $.ajax(
+    //     {
+    //         url: "get_class_image.php",
+    //         data: "ID=" + d.ID,
+    //         type: "POST",
+    //         beforeSend: function () {
+    //             $('#loading_div').show();
+    //         },
+    //         success: function (msg) {
+    //             alert("successfully retrived image!");
+    //             var myimage = msg;
+    //             $('#loading_div').hide();
+    //             return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+    //                 '<tbody>' +
+    //                 '<tr>' +
+    //                 '<td>Class Name:</td>' +
+    //                 '<td>' + d.Title + '</td>' +
+    //                 '</tr>' +
+    //                 '<tr>' +
+    //                 '<td>Image:</td>' +
+    //                 '<td>' + '<img src ="data:image/jpeg;base64,base64_encode(' + myimage + ')" width="175" height="175" />' + '</td>' +
+    //                 '</tr>' +
+    //                 '<tr>' +
+    //                 '<td>Description Paragraph 1:</td>' +
+    //                 '<td>' + d.ParagraphOne + '</td>' +
+    //                 '</tr>' +
+    //                 '<tr>' +
+    //                 '<td>Description Paragraph 2:</td>' +
+    //                 '<td>' + d.ParagraphTwo + '</td>' +
+    //                 '</tr>' +
+    //                 '<tr>' +
+    //                 '<td>Description Paragraph 3:</td>' +
+    //                 '<td>' + d.ParagraphThree + '</td>' +
+    //                 '</tr>' +
+    //                 '<tr>' +
+    //                 '<td>Maximum Seat Number:</td>' +
+    //                 '<td>' + d.MaxSeat + '</td>' +
+    //                 '</tr>' +
+    //                 '<tr>' +
+    //                 '<td>Price($):</td>' +
+    //                 '<td>' + d.Price + '</td>' +
+    //                 '</tr>' +
+    //                 '<tr>' +
+    //                 '<td>Class Type:</td>' +
+    //                 '<td>' + d.ClassType + '</td>' +
+    //                 '</tr>' +
+    //                 '<tr>' +
+    //                 '<td>Balance Type:</td>' +
+    //                 '<td>' + d.BalanceType + '</td>' +
+    //                 '</tr>' +
+    //                 '<tr>' +
+    //                 '<td>Is Published:</td>' +
+    //                 '<td>' + d.IsPublished + '</td>' +
+    //                 '</tr>' +
+    //                 '<tr>' +
+    //                 '<td>Create Time:</td>' +
+    //                 '<td>' + d.CreateTime + '</td>' +
+    //                 '</tr>' +
+    //                 '<tr>' +
+    //                 '<td>Update Time:</td>' +
+    //                 '<td>' + d.UpdateTime + '</td>' +
+    //                 '</tr>' +
+    //                 '</tbody>' +
+    //                 '</table>';
+    //         },
+    //         error: function (xhr) {
+    //             alert('Ajax request alert');
+    //             $('#loading_div').hide();
+    //         },
+    //         complete: function () {
+    //         }
+    //     }
+    // );
+    //
+    // var xhttp;
+    // if (window.XMLHttpRequest) {
+    //     // code for IE7+, Firefox, Chrome, Opera, Safari
+    //     xmlhttp = new XMLHttpRequest();
+    // } else { // code for IE6, IE5
+    //     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    // }
+    // xmlhttp.onreadystatechange = function () {
+    //     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+    //         ImageClass = xmlhttp.responseText;
+    //     }
+    // };
+    // xmlhttp.open("GET", "get_class_image.php?ID=" + d.ID, true);
+    // xmlhttp.send();
+
+    //var myimage = xmlhttp.responseText;
+    getimageclass(d.ID);
+    //alert(myimage);
+    alert(ImageClass);
+    var mysrc = "data:image/jpeg;base64,base64_encode(" + ImageClass + ")";
+    //var mysrc = "get_class_image.php?ID="+d.ID;
+    return '<table cellpadding="5" cellspacing="0" border="0" width = "80%" style="padding-left:50px;">' +
+        '<tbody>' +
+        '<tr>' +
+        '<td>Class Name:</td>' +
+        '<td>' + d.Title + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>Image:</td>' +
+        '<td>' + '<img src =' + mysrc + ' width="175" height="175" />' + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>Description Paragraph 1:</td>' +
+        '<td>' + d.ParagraphOne + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>Description Paragraph 2:</td>' +
+        '<td>' + d.ParagraphTwo + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>Description Paragraph 3:</td>' +
+        '<td>' + d.ParagraphThree + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>Maximum Seat Number:</td>' +
+        '<td>' + d.MaxSeat + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>Price($):</td>' +
+        '<td>' + d.Price + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>Class Type:</td>' +
+        '<td>' + d.ClassType + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>Balance Type:</td>' +
+        '<td>' + d.BalanceType + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>Is Published:</td>' +
+        '<td>' + d.IsPublished + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>Create Time:</td>' +
+        '<td>' + d.CreateTime + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>Update Time:</td>' +
+        '<td>' + d.UpdateTime + '</td>' +
+        '</tr>' +
+        '</tbody>' +
+        '</table>';
+}
+//-------end of datatable function-------
 
 $(document).ready(function () {
-    var $mytable = $("#paymenttable");
-    //load datatable
+    // vars
+    var $mytable = $("#classtable");
 
-//            editor = new $.fn.dataTable.Editor( {
-//                "ajax": "searchdatabase_payment_datatable.php",
-//                "table": "#paymenttable"
-//                fields: [ {
-//                    label: "First name:",
-//                    name: "first_name"
-//                }, {
-//                    label: "Last name:",
-//                    name: "last_name"
-//                }, {
-//                    label: "Position:",
-//                    name: "position"
-//                }, {
-//                    label: "Office:",
-//                    name: "office"
-//                }, {
-//                    label: "Extension:",
-//                    name: "extn"
-//                }, {
-//                    label: "Start date:",
-//                    name: "start_date",
-//                    type: "datetime"
-//                }, {
-//                    label: "Salary:",
-//                    name: "salary"
-//                }
-//                ]
-//           } );
-
-//            $($mytable).on('click', 'tbody td:not(:first-child)', function (e) {
-//                editor.inline(this);
-//            });
-
-    $($mytable).dataTable({
-        // "processing": true,
-        // "serverSide": true,
-        // "ajax": 'test.txt'
-        "ajax": "search_payment_datatable.php"
-
-
-        //------- enable editing -------
-        // Activate an inline edit on click of a table cell
-        //dom: "Bfrtip",
-        //ajax: "../php/staff.php",
-//                columns: [
-//                    {
-//                        data: null,
-//                        defaultContent: '',
-//                        className: 'select-checkbox',
-//                        orderable: false
-//                    },
-//                    {data: "first_name"},
-//                    {data: "last_name"},
-//                    {data: "position"},
-//                    {data: "office"},
-//                    {data: "start_date"},
-//                    {data: "salary", render: $.fn.dataTable.render.number(',', '.', 0, '$')}
-//                ],
-//                "select": {
-//                    style: 'os',
-//                    selector: 'td:first-child'
-//                },
-//                buttons: [
-//                    {extend: "create", editor: editor},
-//                    {extend: "edit", editor: editor},
-//                    {extend: "remove", editor: editor}
-//                ]
-        //------- end of enable editing
+    //-------load datatable-------
+    var table = $($mytable).DataTable({
+        "ajax": "search_class_datatable.php",
+        "columns": [
+            {
+                "className": 'details-control',
+                "orderable": false,
+                "data": null,
+                "defaultContent": ''
+            },
+            {"data": "ID"},
+            {"data": "Title"},
+            {"data": "ClassType"},
+            {"data": "BalanceType"},
+            {"data": "IsPublished"},
+            {"data": "CreateTime"},
+            {"data": "Action"}
+        ],
+        "order": [[1, 'asc']]
     });
 
-    // vars
-    var table = $($mytable).DataTable();
-    //var $username = '<%= Session["StaManagerUsername"] %>';
+    // Add event listener for opening and closing details
+    $($mytable).find('tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row(tr);
+        var ajaxresult = getimageclass(row.data().ID);
+
+        $.when(ajaxresult).then(function(){
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+            }
+            else {
+                // Open this row
+                row.child(format(row.data())).show();
+                tr.addClass('shown');
+            }
+        })
+    });
+    //-------end of load datatable-------
 
     //--------add row-------
     var $add_row = $("#addRow");
@@ -303,45 +413,13 @@ $(document).ready(function () {
                 type: "POST",
                 beforeSend: function () {
                     $('#loading_div').show();
-                    //beforeSend 發送請求之前會執行的函式
                 },
                 success: function (msg) {
                     alert(msg);
-//                            var flag = msg.substring(0, 8);
-//                            var firstname = msg.substring(9)
-
-//                            if (flag == "successY") {
-//
-//                                $('#login').hide();
-//                                $('#logout').show();
-//                                $('#login_showname').text('Hello, Admin');
-//                                $("#loginForm").hide();
-//                                $("#registerForm").hide();
-//                                $("#recommended_products").fadeIn();
-//                                Category_Admin();
-//                                Search_Admin();
-//                           }
-//                            else if (flag == "successN") {
-//                                $('#login').hide();
-//                                $('#logout').show();
-//                                $('#login_showname').text('Hello, ' + firstname);
-//                                $("#loginForm").hide();
-//                                $("#registerForm").hide();
-//                                $("#recommended_products").fadeIn();
-//                                Category_GeneralUser();
-//                                Search_GeneralUser();
-//                           }
-//                            else {
-//                                $('#error_msg').text('The username or password you entered is incorrect. Please try again.');
-//                            }
                     $('#loading_div').hide();
 
                     //to reload datatable
                     table.ajax.reload();
-                    //table.destroy();
-                    //table = $($mytable).dataTable({
-                    //    "ajax": "search_payment_datatable.php"
-                    //});
                 },
                 error: function (xhr) {
                     alert('Ajax request alert');
@@ -351,26 +429,7 @@ $(document).ready(function () {
                 }
             }
         );
-
-        // table.row.add([ /////use reload instead
-        //     $payername,
-        //     $amountdollar,
-        //     $cardtype,
-        //     $checkno,
-        //     $iscash,
-        //     $studentname,
-        //     $classID,
-        //     $receivername,
-        //     $note,
-        //     $datetime,
-        //     $username,
-        //     ""
-        // ]).draw(false);
     });
-
-    // Automatically add a first row of data
-    //$($add_row).click();
-
     //-------end add row------
 
     //------- Setup - add a text input to each footer cell --------
@@ -391,39 +450,13 @@ $(document).ready(function () {
             }
         });
     });
-    //------- end Setup text input search --------
-
-//                //------- Setup select search (not working) --------
-//                $($mytable).DataTable( {
-//                    initComplete: function () {
-//                        this.api().columns().every( function () {
-//                            var column = this;
-//                            var select = $('<select><option value=""></option></select>')
-//                                .appendTo( $(column.footer()).empty() )
-//                                .on( 'change', function () {
-//                                    var val = $.fn.dataTable.util.escapeRegex(
-//                                        $(this).val()
-//                                    );
-//
-//                                    column
-//                                        .search( val ? '^'+val+'$' : '', true, false )
-//                                        .draw();
-//                                } );
-//
-//                            column.data().unique().sort().each( function ( d, j ) {
-//                                select.append( '<option value="'+d+'">'+d+'</option>' )
-//                            } );
-//                        } );
-//                    }
-//                } );
-    //------- end Setup select search --------
 
     //------- highlight column --------
-    $($mytable).find('tbody').on('mouseenter', 'td', function () {
-            var colIdx = table.cell(this).index().column;
-            $(table.cells().nodes()).removeClass('highlight');
-            $(table.column(colIdx).nodes()).addClass('highlight');
-        });
+    //$($mytable).find('tbody').on('mouseenter', 'td', function () {
+    //     var colIdx = table.cell(this).index().column;
+    //     $(table.cells().nodes()).removeClass('highlight');
+    //     $(table.column(colIdx).nodes()).addClass('highlight');
+    // });
     //------- end highlight column
 
     //------- for form --------
@@ -527,45 +560,13 @@ $(document).ready(function () {
                 type: "POST",
                 beforeSend: function () {
                     $('#loading_div').show();
-                    //beforeSend 發送請求之前會執行的函式
                 },
                 success: function (msg) {
                     alert(msg);
-//                            var flag = msg.substring(0, 8);
-//                            var firstname = msg.substring(9)
-
-//                            if (flag == "successY") {
-//
-//                                $('#login').hide();
-//                                $('#logout').show();
-//                                $('#login_showname').text('Hello, Admin');
-//                                $("#loginForm").hide();
-//                                $("#registerForm").hide();
-//                                $("#recommended_products").fadeIn();
-//                                Category_Admin();
-//                                Search_Admin();
-//                           }
-//                            else if (flag == "successN") {
-//                                $('#login').hide();
-//                                $('#logout').show();
-//                                $('#login_showname').text('Hello, ' + firstname);
-//                                $("#loginForm").hide();
-//                                $("#registerForm").hide();
-//                                $("#recommended_products").fadeIn();
-//                                Category_GeneralUser();
-//                                Search_GeneralUser();
-//                           }
-//                            else {
-//                                $('#error_msg').text('The username or password you entered is incorrect. Please try again.');
-//                            }
                     $('#loading_div').hide();
 
                     //to reload datatable
                     table.ajax.reload();
-                    //table.destroy();
-                    //table = $($mytable).dataTable({
-                    //    "ajax": "search_payment_datatable.php"
-                    //});
 
                     //alert success
                     alert('Successfully updated!')

@@ -55,7 +55,7 @@
                         the students on STA main website. Under 'Management', several important functions, such as class
                         management, account management, payment form, email function may help the managers in an efficient
                         way.</p>
-                    <button class="bigbutton">Class Management</button>
+                    <a href="class.php"><button class="bigbutton">Class Management</button></a>
                     <button class="bigbutton">Account Management</button>
                     <a href="payment.php"><button class="bigbutton">Payment Management</button></a>
                     <button class="bigbutton">Student Management</button><br><br>

@@ -5,7 +5,6 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
 }else{
     $_SESSION['StaManagerUsername'] = $_SESSION['stamgaccount'];
 }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,7 +16,7 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
 
     <!-- css  -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="css/mycss.payment.css">
+    <link rel="stylesheet" type="text/css" href="css/mycss.class.css">
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
 
     <!-- modernizr enables HTML5 elements and feature detects -->
@@ -29,13 +28,11 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
     <!-- myjavascript   -->
     <script type="text/javascript" charset="utf8"
             src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="js/payment.js"></script>
+    <script type="text/javascript" src="js/class.js"></script>
 </head>
 
 <body>
 <div id="main">
-    <!-- <?php //include("header.php") ?> -->
-
     <header>
         <div id="banner">
             <div id="welcome_slogan">
@@ -57,7 +54,7 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
             </ul>
         </div><!--close menubar-->
     </nav>
-    
+
     <div id="site_content">
         <div id="content">
             <div class="content_item">
@@ -76,46 +73,36 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
 
                         <div class="DivTable">
                             <div>
-                                <p class="center">Payment Management Tool</p>
+                                <p class="center">Class Management Tool</p>
                             </div>
 
                             <!--    mytable    -->
-                            <button id="ShowAddOrEditForm">Add Payment record</button>
+                            <button id="ShowAddOrEditForm">Add class record</button>
                             <hr/>
                             <div id="DivDatatable">
-                                <table id="paymenttable" class="display compact" width="100%">
+                                <table id="classtable" class="display" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
-                                        <th>Payer Name</th>
-                                        <th>Amount Dollar</th>
-                                        <th>Card Type</th>
-                                        <th>Check No</th>
-                                        <th>Is Cash</th>
-                                        <th>Student Name</th>
-                                        <th>ClassID</th>
-                                        <th>ReceiverName</th>
-                                        <th>Note</th>
+                                        <th width="20px"></th>
+                                        <th>Class ID</th>
+                                        <th>Title</th>
+                                        <th>Type</th>
+                                        <th>BalanceType</th>
+                                        <th>Is Published</th>
                                         <th>Create Time</th>
-                                        <th>Updater Name</th>
-                                        <th>Update Time</th>
-                                        <th>action</th>
+                                        <th width="30px">Action</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
-                                        <th>Payer Name</th>
-                                        <th>Amount Dollar</th>
-                                        <th>Card Type</th>
-                                        <th>Check No</th>
-                                        <th>Is Cash</th>
-                                        <th>Student Name</th>
-                                        <th>ClassID</th>
-                                        <th>ReceiverName</th>
-                                        <th>Note</th>
+                                        <th></th>
+                                        <th>Class ID</th>
+                                        <th>Title</th>
+                                        <th>Type</th>
+                                        <th>BalanceType</th>
+                                        <th>Is Published</th>
                                         <th>Create Time</th>
-                                        <th>Updater Name</th>
-                                        <th>Update Time</th>
-                                        <th>action</th>
+                                        <th>Action</th>
                                     </tr>
                                     </tfoot>
                                 </table>
@@ -125,7 +112,7 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
                         <hr>
                         <!--        <form class="center">-->
                         <div class="DivForm" id="AddOrEdit" style="display:none">
-                            <h4 class="center black">Payment Record</h4>
+                            <h4 class="center black">Class Record</h4>
                             <img id="Close" src="images/close1.png">
                             <p><input id="PaymentID" style="display:none"></p>
                             <p><input id="PaymentCreateTime" style="display:none"></p>
@@ -162,7 +149,6 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
                             <p><input type="text" id="StudentName"></p>
 
                             <p>Class ID</p>
-                            <!-- <td><input type="text" id="ClassID"></td> -->
                             <p>
                                 <select id="SelectClassID" name="ClassID">
                                     <option value=""></option>
