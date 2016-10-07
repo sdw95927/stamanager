@@ -37,9 +37,41 @@ if ($ID == ""){
             echo "\"MaxSeat\": \"$MaxSeat\",\n";
             echo "\"DueRegister\": \"$DueRegister\",\n";
             echo "\"Price\": \"$Price\",\n";
+
+            //class type
+            $stmtClassType = mysqli_prepare($mysqli, "SELECT ClassType FROM CodeClassType WHERE ID=?");
+            mysqli_stmt_bind_param($stmtClassType, "s", $ClassType);
+            if ($stmtClassType) {
+                mysqli_stmt_execute($stmtClassType);
+                $stmtClassType->bind_result($ClassType);
+                mysqli_stmt_fetch($stmtClassType);
+                mysqli_stmt_close($stmtClassType);
+            } else {
+                die('mysqli error: ' . mysqli_error($mysqli));
+            }
             echo "\"ClassType\": \"$ClassType\",\n";
+
+            //balance type
+            $stmtBalanceType = mysqli_prepare($mysqli, "SELECT BalanceType FROM CodeBalanceType WHERE ID=?");
+            mysqli_stmt_bind_param($stmtBalanceType, "s", $BalanceType);
+            if ($stmtBalanceType) {
+                mysqli_stmt_execute($stmtBalanceType);
+                $stmtBalanceType->bind_result($BalanceType);
+                mysqli_stmt_fetch($stmtBalanceType);
+                mysqli_stmt_close($stmtBalanceType);
+            } else {
+                die('mysqli error: ' . mysqli_error($mysqli));
+            }
             echo "\"BalanceType\": \"$BalanceType\",\n";
+
+            //is published
+            if($IsPublished==1){
+                $IsPublished = "Yes";
+            }else{
+                $IsPublished = "No";
+            }
             echo "\"IsPublished\": \"$IsPublished\",\n";
+
             echo "\"CreateTime\": \"$CreateTime\",\n";
             echo "\"UpdateTime\": \"$UpdateTime\",\n";
             echo "\"Action\": \"<button id='$ID' onclick='EnableEditing($ID)'>edit</button>/<button>publish</button>\"\n";
