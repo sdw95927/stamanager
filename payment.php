@@ -29,12 +29,6 @@ if (isset($_SESSION['StaManagerUsername'])) { // if already login
     <!-- javascript at the bottom for fast page loading -->
     <script type="text/javascript" src="js/jquery.js"></script>
 
-    <script type="text/javascript">
-        $(function () {
-            $("#navhome").addClass("current");
-        });
-    </script>
-
     <!-- myjavascript   -->
     <script type="text/javascript" charset="utf8"
             src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>

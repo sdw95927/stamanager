@@ -4,6 +4,10 @@
 //global var
 var $username;
 
+$(function() {
+    $("#navmanagement").addClass("current");
+});
+
 <!--AJAX code-->
 function showresult(str, myid) {
     var xhttp;
@@ -280,7 +284,7 @@ $(document).ready(function () {
         var $receivername = $("#ReceiverName").val();
         var $note = $("#Note").val();
         var currentdate = new Date();
-        var currentmonth = currentdate.getMonth()+1;
+        var currentmonth = currentdate.getMonth() + 1;
         var $datetime = currentdate.getFullYear() + "-" +
             currentmonth + "-" +
             currentdate.getDate() + " " +
@@ -426,19 +430,19 @@ $(document).ready(function () {
     //------- for form --------
     $($add_row).show();
 
-    $('#ShowAddOrEditForm').on('click', function(){
+    $('#ShowAddOrEditForm').on('click', function () {
         var addoredit = '#AddOrEdit';
         var showbutton = '#ShowAddOrEditForm';
-        if ($(addoredit).is(":visible")===true) {
+        if ($(addoredit).is(":visible") === true) {
             $(addoredit).hide();
             $(showbutton).html('Open/Add new payment record');
-        }else{
+        } else {
             $(addoredit).show();
             $(showbutton).html('Hide form');
         }
     });
 
-    $('#Close').on('click', function(){
+    $('#Close').on('click', function () {
         var addoredit = '#AddOrEdit';
         var showbutton = '#ShowAddOrEditForm';
         $(addoredit).hide();
@@ -490,5 +494,91 @@ $(document).ready(function () {
         $("#EditRow").hide();
         $("#addRow").show();
     });
-    //------- end of for form -------
+
+    $('#EditRow').on('click', function () {
+        //alert($username);
+        var $ID = $("#PaymentID").val();
+        var $payername = $("#PayerName").val();
+        var $amountdollar = $("#AmountDollar").val();
+        var $cardtype = $("input[name=cardtype]:checked").val();
+        var $checkno = $("#CheckNo").val();
+        var $iscash = $("input[name=iscash]:checked").val();
+        var $studentname = $("#StudentName").val();
+        //var $classID = $("#ClassID").val();
+        var $classID = $("select[name=ClassID]").val();
+        var $receivername = $("#ReceiverName").val();
+        var $note = $("#Note").val();
+        var currentdate = new Date();
+        var currentmonth = currentdate.getMonth() + 1;
+        var $datetime = currentdate.getFullYear() + "-" +
+            currentmonth + "-" +
+            currentdate.getDate() + " " +
+            currentdate.getHours() + ":" +
+            currentdate.getMinutes() + ":" +
+            currentdate.getSeconds();
+
+        //add to database
+        $.ajax(
+            {
+                url: "edit_payment_database.php",
+                data: "payername=" + $payername + "&amountdollar=" + $amountdollar + "&cardtype=" + $cardtype +
+                "&checkno=" + $checkno + "&iscash=" + $iscash + "&studentname=" + $studentname + "&classID=" +
+                $classID + "&receivername=" + $receivername + "&note=" + $note + "&updater=" + $username +
+                "&updatetime=" + $datetime + "&ID=" + $ID,
+                type: "POST",
+                beforeSend: function () {
+                    $('#loading_div').show();
+                    //beforeSend 發送請求之前會執行的函式
+                },
+                success: function (msg) {
+                    alert(msg);
+//                            var flag = msg.substring(0, 8);
+//                            var firstname = msg.substring(9)
+
+//                            if (flag == "successY") {
+//
+//                                $('#login').hide();
+//                                $('#logout').show();
+//                                $('#login_showname').text('Hello, Admin');
+//                                $("#loginForm").hide();
+//                                $("#registerForm").hide();
+//                                $("#recommended_products").fadeIn();
+//                                Category_Admin();
+//                                Search_Admin();
+//                           }
+//                            else if (flag == "successN") {
+//                                $('#login').hide();
+//                                $('#logout').show();
+//                                $('#login_showname').text('Hello, ' + firstname);
+//                                $("#loginForm").hide();
+//                                $("#registerForm").hide();
+//                                $("#recommended_products").fadeIn();
+//                                Category_GeneralUser();
+//                                Search_GeneralUser();
+//                           }
+//                            else {
+//                                $('#error_msg').text('The username or password you entered is incorrect. Please try again.');
+//                            }
+                    $('#loading_div').hide();
+
+                    //to reload datatable
+                    table.ajax.reload();
+                    //table.destroy();
+                    //table = $($mytable).dataTable({
+                    //    "ajax": "search_payment_datatable.php"
+                    //});
+
+                    //alert success
+                    alert('Successfully updated!')
+                },
+                error: function (xhr) {
+                    alert('Ajax request alert');
+                    $('#loading_div').hide();
+                },
+                complete: function () {
+                }
+            }
+        );
+        //------- end of for form -------
+    });
 });
