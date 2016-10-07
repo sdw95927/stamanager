@@ -9,12 +9,12 @@ include("connect_to_mysql.php");
 
 if (!isset($_POST['ID'])){
     $stmt = mysqli_prepare($mysqli, "SELECT `ID`, `Title`, `ImageClass`, `ParagraphOne`, `ParagraphTwo`, `ParagraohThree`,
- `MaxSeat`, `DueRegister`, `Price`, `ClassType`, `BalanceType`, `IsPublished`, `CreateTime`, `UpdateTime` 
+ `MaxSeat`, `DueRegister`, `Price`, `ClassType`, `BalanceType`, `DefaultTeacher`, `IsPublished`, `CreateTime`, `UpdateTime` 
  FROM `staClass` WHERE 1");
     if ($stmt) {
         mysqli_stmt_execute($stmt);
         $stmt->bind_result($ID, $Title, $ImageClass, $ParagraphOne, $ParagraphTwo, $ParagraphThree, $MaxSeat, $DueRegister,
-            $Price, $ClassType, $BalanceType, $IsPublished, $CreateTime, $UpdateTime);
+            $Price, $ClassType, $BalanceType, $DefaultTeacher, $IsPublished, $CreateTime, $UpdateTime);
         $stmt->store_result();
         $rows = $stmt->num_rows;
         $current_row = 1;
@@ -61,6 +61,8 @@ if (!isset($_POST['ID'])){
                 die('mysqli error: ' . mysqli_error($mysqli));
             }
             echo "\"BalanceType\": \"$BalanceType\",\n";
+
+            echo "\"DefaultTeacher\": \"$DefaultTeacher\",\n";
 
             //is published
             if($IsPublished==1){

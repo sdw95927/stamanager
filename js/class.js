@@ -320,6 +320,11 @@ function format(d) {
         '<td>' + d.BalanceType + '</td>' +
         '</tr>' +
         '<tr>' +
+        '<tr>' +
+        '<td>Default Teacher</td>' +
+        '<td>' + d.DefaultTeacher + '</td>' +
+        '</tr>' +
+        '<tr>' +
         '<td>Is Published:</td>' +
         '<td>' + d.IsPublished + '</td>' +
         '</tr>' +
