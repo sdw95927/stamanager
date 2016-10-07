@@ -85,7 +85,7 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
                                         <th>Class ID</th>
                                         <th>Title</th>
                                         <th>Type</th>
-                                        <th>BalanceType</th>
+                                        <th>Balance Type</th>
                                         <th>Is Published</th>
                                         <th>Create Time</th>
                                         <th width="30px">Action</th>
@@ -112,7 +112,7 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
 
                             <p>Class Type</p>
                             <p>
-                                <select id="SelectClassID" name="ClassType">
+                                <select id="SelectClassType" name="ClassType">
                                     <option value="">Please Select</option>
                                     <!-- auromatically generate list -->
                                     <?php
@@ -133,8 +133,31 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
                                 </select>
                             </p>
 
-                            <p>Receiver Name</p>
-                            <p><input type="text" id="ReceiverName"></p>
+                            <p>Balance Type</p>
+                            <p>
+                                <select id="SelectBalanceType" name="BalanceType">
+                                    <option value="">Please Select</option>
+                                    <!-- auromatically generate list -->
+                                    <?php
+                                    include("connect_to_mysql.php");
+                                    $stmt = mysqli_prepare($mysqli, "SELECT ID, BalanceType FROM CodeBalanceType");
+                                    if ($stmt) {
+                                        mysqli_stmt_execute($stmt);
+                                        $stmt->bind_result($ID, $BalanceType);
+                                        while (mysqli_stmt_fetch($stmt)) {
+                                            echo "<option value=$ID>$BalanceType</option>\n";
+                                        }
+                                        mysqli_stmt_close($stmt);
+                                    } else {
+                                        die('mysqli error: ' . mysqli_error($mysqli));
+                                    }
+                                    mysqli_close($mysqli);
+                                    ?>
+                                </select>
+                            </p>
+
+                            <p>Image</p>
+                            <p><input type="file" id="UploadImage"></p>
 
                             <p>Note</p>
                             <p><input type="text" id="Note"></p>

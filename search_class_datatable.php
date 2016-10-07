@@ -7,9 +7,7 @@
  */
 include("connect_to_mysql.php");
 
-$ID = $_POST['ID'];
-
-if ($ID == ""){
+if (!isset($_POST['ID'])){
     $stmt = mysqli_prepare($mysqli, "SELECT `ID`, `Title`, `ImageClass`, `ParagraphOne`, `ParagraphTwo`, `ParagraohThree`,
  `MaxSeat`, `DueRegister`, `Price`, `ClassType`, `BalanceType`, `IsPublished`, `CreateTime`, `UpdateTime` 
  FROM `staClass` WHERE 1");
@@ -89,6 +87,7 @@ if ($ID == ""){
     }else{
     }
 } else {
+    $ID = $_POST['ID'];
     $stmt = mysqli_prepare($mysqli, "SELECT `PayerName`,`AmountDollar`,`CardType`,`CheckNo`,`IsCash`,`StudentName`,
 `ClassID`,`ReceiverName`,`Note`,`CreateTime`,`UpdaterName`,`UpdateTime` FROM `Payment` WHERE `ID` = ? ");
     if ($stmt) {
