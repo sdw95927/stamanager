@@ -69,8 +69,6 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
 
                 <div class="content">
                     <div class="container">
-                        <?php include("connect_to_mysql.php"); ?>
-
                         <div class="DivTable">
                             <div>
                                 <p class="center">Class Management Tool</p>
@@ -102,57 +100,35 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
                         <div class="DivForm" id="AddOrEdit" style="display:none">
                             <h4 class="center black">Class Record</h4>
                             <img id="Close" src="images/close1.png">
-                            <p><input id="PaymentID" style="display:none"></p>
-                            <p><input id="PaymentCreateTime" style="display:none"></p>
-
-                            <p>Payer Name</p>
-                            <p><input type="text" id="PayerName"></p>
-
-                            <p>Amount Dollar</p>
-                            <p><input type="text" id="AmountDollar"></p>
-
-                            <p>Payment Type</p>
-                            <p>
-                                <input type="radio" name="iscash" value="1" id="IsCashTrue" checked/> Cash
-                                <input type="radio" name="iscash" value="0" id="IsCheckTrue"/> Check
-                                <input type="radio" name="iscash" value="0" id="IsCardTrue"/> Card
-                            </p>
-
-                            <div id="SelectCardType" hidden="" style="display:none">
-                                <p>Card Type</p>
-                                <p>
-                                    <input type="radio" name="cardtype" value="Debit"/> Debit
-                                    <input type="radio" name="cardtype" value="Credit"/> Credit
-                                    <input type="radio" name="cardtype" value="Discover"/> Discover
-                                    <input type="radio" name="cardtype" value="Master"/> Master
-                                </p>
-                            </div>
-
-                            <div id="InputCheckNo" hidden="hidden" style="display:none">
-                                <p>Check No.</p>
-                                <p><input type="text" id="CheckNo"></p>
-                            </div>
-
-                            <p>Student Name</p>
-                            <p><input type="text" id="StudentName"></p>
 
                             <p>Class ID</p>
+                            <p><input type = "text" id="ID"></p>
+
+
+                            <!--<p><input id="PaymentCreateTime" style="display:none"></p>-->
+
+                            <p>Title</p>
+                            <p><input type="text" id="Title"></p>
+
+                            <p>Class Type</p>
                             <p>
-                                <select id="SelectClassID" name="ClassID">
-                                    <option value=""></option>
+                                <select id="SelectClassID" name="ClassType">
+                                    <option value="">Please Select</option>
                                     <!-- auromatically generate list -->
                                     <?php
-                                    $stmt = mysqli_prepare($mysqli, "SELECT ID FROM staClass");
+                                    include("connect_to_mysql.php");
+                                    $stmt = mysqli_prepare($mysqli, "SELECT ID, ClassType FROM CodeClassType");
                                     if ($stmt) {
                                         mysqli_stmt_execute($stmt);
-                                        $stmt->bind_result($classID);
+                                        $stmt->bind_result($ID, $ClassType);
                                         while (mysqli_stmt_fetch($stmt)) {
-                                            echo "<option value=$classID>$classID</option>\n";
+                                            echo "<option value=$ID>$ClassType</option>\n";
                                         }
                                         mysqli_stmt_close($stmt);
                                     } else {
                                         die('mysqli error: ' . mysqli_error($mysqli));
                                     }
+                                    mysqli_close($mysqli);
                                     ?>
                                 </select>
                             </p>
@@ -163,7 +139,7 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
                             <p>Note</p>
                             <p><input type="text" id="Note"></p>
 
-                            <button id="addRow" hidden="" style="display:none">Add Payment Record</button>
+                            <button id="addRow" hidden="" style="display:none">Add Class Record</button>
                             <button id="EditRow" hidden="" style="display:none">Confirm Edition</button>
                             <button id="Reset">Reset</button>
                         </div>
