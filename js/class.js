@@ -172,7 +172,7 @@ function getimageclass(ID) {
             $('#loading_div').show();
         },
         success: function (msg) {
-            alert("successfully retrived image!");
+            //alert("successfully retrived image!");
             ImageClass = msg;
             $('#loading_div').hide();
         }
@@ -273,8 +273,12 @@ function format(d) {
     //var myimage = xmlhttp.responseText;
     getimageclass(d.ID);
     //alert(myimage);
-    alert(ImageClass);
+    //alert(ImageClass);
+    //ImageClass = unescape(encodeURIComponent(ImageClass.replace(/\s/g, '')));
+    //var encoded = window.btoa(ImageClass);
     var mysrc = "data:image/jpeg;base64,base64_encode(" + ImageClass + ")";
+    //var mysrc = "data:image/jpeg;base64," + encoded;
+    //alert(mysrc);
     //var mysrc = "get_class_image.php?ID="+d.ID;
     return '<table cellpadding="5" cellspacing="0" border="0" width = "80%" style="padding-left:50px;">' +
         '<tbody>' +
@@ -284,7 +288,8 @@ function format(d) {
         '</tr>' +
         '<tr>' +
         '<td>Image:</td>' +
-        '<td>' + '<img src =' + mysrc + ' width="175" height="175" />' + '</td>' +
+        //'<td>' + '<img src =' + mysrc + ' width=\"175px\" height=\"175px\" />' + '</td>' +
+        '<td>' + ImageClass + '</td>' +
         '</tr>' +
         '<tr>' +
         '<td>Description Paragraph 1:</td>' +
@@ -431,33 +436,6 @@ $(document).ready(function () {
         );
     });
     //-------end add row------
-
-    //------- Setup - add a text input to each footer cell --------
-    $($mytable).find('tfoot th').each(function () {
-        var title = $(this).text();
-        $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-    });
-
-    // Apply the search
-    table.columns().every(function () {
-        var that = this;
-
-        $('input', this.footer()).on('keyup change', function () {
-            if (that.search() !== this.value) {
-                that
-                    .search(this.value)
-                    .draw();
-            }
-        });
-    });
-
-    //------- highlight column --------
-    //$($mytable).find('tbody').on('mouseenter', 'td', function () {
-    //     var colIdx = table.cell(this).index().column;
-    //     $(table.cells().nodes()).removeClass('highlight');
-    //     $(table.column(colIdx).nodes()).addClass('highlight');
-    // });
-    //------- end highlight column
 
     //------- for form --------
     $($add_row).show();

@@ -93,18 +93,6 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
                                         <th width="30px">Action</th>
                                     </tr>
                                     </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th></th>
-                                        <th>Class ID</th>
-                                        <th>Title</th>
-                                        <th>Type</th>
-                                        <th>BalanceType</th>
-                                        <th>Is Published</th>
-                                        <th>Create Time</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                         </div>

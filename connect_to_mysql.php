@@ -13,5 +13,3 @@ if($mysqli->connect_error){
     die('could not connect to MySQL:' . $mysqli->connect_error);
 }
 ?>
-
-

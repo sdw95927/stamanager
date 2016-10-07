@@ -101,23 +101,23 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
                                         <th>action</th>
                                     </tr>
                                     </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>Payer Name</th>
-                                        <th>Amount Dollar</th>
-                                        <th>Card Type</th>
-                                        <th>Check No</th>
-                                        <th>Is Cash</th>
-                                        <th>Student Name</th>
-                                        <th>ClassID</th>
-                                        <th>ReceiverName</th>
-                                        <th>Note</th>
-                                        <th>Create Time</th>
-                                        <th>Updater Name</th>
-                                        <th>Update Time</th>
-                                        <th>action</th>
-                                    </tr>
-                                    </tfoot>
+<!--                                    <tfoot>-->
+<!--                                    <tr>-->
+<!--                                        <th>Payer Name</th>-->
+<!--                                        <th>Amount Dollar</th>-->
+<!--                                        <th>Card Type</th>-->
+<!--                                        <th>Check No</th>-->
+<!--                                        <th>Is Cash</th>-->
+<!--                                        <th>Student Name</th>-->
+<!--                                        <th>ClassID</th>-->
+<!--                                        <th>ReceiverName</th>-->
+<!--                                        <th>Note</th>-->
+<!--                                        <th>Create Time</th>-->
+<!--                                        <th>Updater Name</th>-->
+<!--                                        <th>Update Time</th>-->
+<!--                                        <th>action</th>-->
+<!--                                    </tr>-->
+<!--                                    </tfoot>-->
                                 </table>
                             </div>
                         </div>

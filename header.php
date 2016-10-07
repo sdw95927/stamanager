@@ -1,10 +1,10 @@
 <?php
-session_start();
-if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
-    header("Location: login.php");
-}
-
-?>
+//session_start();
+//if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
+//    header("Location: login.php");
+//}
+//
+//?>
 
 <header>
     <div id="banner">
