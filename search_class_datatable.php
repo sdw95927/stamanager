@@ -7,7 +7,7 @@
  */
 include("connect_to_mysql.php");
 
-if (!isset($_POST['ID'])){
+if (!isset($_POST['ID'])) {
     $stmt = mysqli_prepare($mysqli, "SELECT `ID`, `Title`, `ImageClass`, `ParagraphOne`, `ParagraphTwo`, `ParagraohThree`,
  `MaxSeat`, `DueRegister`, `Price`, `ClassType`, `BalanceType`, `DefaultTeacher`, `IsPublished`, `CreateTime`, `UpdateTime` 
  FROM `staClass` WHERE 1");
@@ -20,8 +20,8 @@ if (!isset($_POST['ID'])){
         $current_row = 1;
         echo "{\n";
         echo "\"draw\": 1,\n";
-        echo "\"recordsTotal\": ".$rows.",\n";
-        echo "\"recordsFiltered\": ".$rows.",\n";
+        echo "\"recordsTotal\": " . $rows . ",\n";
+        echo "\"recordsFiltered\": " . $rows . ",\n";
         echo "\"data\": [\n";
         while (mysqli_stmt_fetch($stmt)) {
             echo "{\n";
@@ -65,9 +65,9 @@ if (!isset($_POST['ID'])){
             echo "\"DefaultTeacher\": \"$DefaultTeacher\",\n";
 
             //is published
-            if($IsPublished==1){
+            if ($IsPublished == 1) {
                 $IsPublished = "Yes";
-            }else{
+            } else {
                 $IsPublished = "No";
             }
             echo "\"IsPublished\": \"$IsPublished\",\n";
@@ -75,9 +75,9 @@ if (!isset($_POST['ID'])){
             echo "\"CreateTime\": \"$CreateTime\",\n";
             echo "\"UpdateTime\": \"$UpdateTime\",\n";
             echo "\"Action\": \"<button id='$ID' onclick='EnableEditing($ID)'>edit</button>/<button>publish</button>\"\n";
-            if ($current_row == $rows){
+            if ($current_row == $rows) {
                 echo "}\n";
-            }else{
+            } else {
                 echo "},\n";
             }
             $current_row++;
@@ -85,35 +85,37 @@ if (!isset($_POST['ID'])){
         echo "]\n";
         echo "}";
         mysqli_stmt_close($stmt);
+        mysqli_close($mysqli);
         //echo "miaoji";
-    }else{
+    } else {
     }
 } else {
     $ID = $_POST['ID'];
-    $stmt = mysqli_prepare($mysqli, "SELECT `PayerName`,`AmountDollar`,`CardType`,`CheckNo`,`IsCash`,`StudentName`,
-`ClassID`,`ReceiverName`,`Note`,`CreateTime`,`UpdaterName`,`UpdateTime` FROM `Payment` WHERE `ID` = ? ");
+    $stmt = mysqli_prepare($mysqli, "SELECT `Title`, `ImageClass`,`ParagraphOne`, `ParagraphTwo`, `ParagraohThree`,
+ `MaxSeat`, `DueRegister`, `Price`, `ClassType`, `BalanceType`, `DefaultTeacher`, `IsPublished` 
+ FROM `staClass` WHERE `ID`=?");
     if ($stmt) {
         mysqli_stmt_bind_param($stmt, "s", $ID);
         mysqli_stmt_execute($stmt);
-        $stmt->bind_result($PayerName, $AmountDollar, $CardType, $CheckNo, $IsCash, $StudentName, $ClassID,
-            $ReceiverName, $Note, $CreateTime, $UpdaterName, $UpdateTime);
-        while (mysqli_stmt_fetch($stmt)) {
-            echo "$PayerName&&";
-            echo "$AmountDollar&&";
-            echo "$CardType&&";
-            echo "$CheckNo&&";
-            echo "$IsCash&&";
-            echo "$StudentName&&";
-            echo "$ClassID&&";
-            echo "$ReceiverName&&";
-            echo "$Note&&";
-            echo "$CreateTime&&";
-            echo "$UpdaterName&&";
-            echo "$UpdateTime";
-        }
+        $stmt->bind_result($Title, $ImageClass, $ParagraphOne, $ParagraphTwo, $ParagraphThree, $MaxSeat, $DueRegister,
+            $Price, $ClassType, $BalanceType, $DefaultTeacher, $IsPublished);
+        mysqli_stmt_fetch($stmt);
+        $Image = base64_encode($ImageClass);
+        echo "$Title&&";
+        echo "$Image&&";
+        echo "$ParagraphOne&&";
+        echo "$ParagraphTwo&&";
+        echo "$ParagraphThree&&";
+        echo "$MaxSeat&&";
+        echo "$DueRegister&&";
+        echo "$Price&&";
+        echo "$ClassType&&";
+        echo "$BalanceType&&";
+        echo "$DefaultTeacher&&";
+        echo "$IsPublished";
         mysqli_stmt_close($stmt);
-        //echo "miaoji";
-    }else{
+        mysqli_close($mysqli);
+    } else {
     }
 }
 ?>

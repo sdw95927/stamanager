@@ -1,8 +1,8 @@
 <?php
 session_start();
-if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
+if (!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])) {
     header("Location: login.php");
-}else{
+} else {
     $_SESSION['StaManagerUsername'] = $_SESSION['stamgaccount'];
 }
 ?>
@@ -21,8 +21,6 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
 
     <!-- modernizr enables HTML5 elements and feature detects -->
     <script type="text/javascript" src="js/modernizr-1.5.min.js"></script>
-
-    <!-- javascript at the bottom for fast page loading -->
     <script type="text/javascript" src="js/jquery.js"></script>
 
     <!-- myjavascript   -->
@@ -101,16 +99,16 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
                             <h4 class="center black">Class Record</h4>
                             <img id="Close" src="images/close1.png">
 
-                            <p>Class ID</p>
-                            <p><input type = "text" id="ID"></p>
+                            <p>Class ID *</p>
+                            <p><input type="text" id="ID"></p>
 
 
-                            <!--<p><input id="PaymentCreateTime" style="display:none"></p>-->
+                            <p><input id="OldID" style="display:none"></p>
 
-                            <p>Title</p>
+                            <p>Title *</p>
                             <p><input type="text" id="Title"></p>
 
-                            <p>Class Type</p>
+                            <p>Class Type *</p>
                             <p>
                                 <select id="SelectClassType" name="ClassType">
                                     <option value="">Please Select</option>
@@ -133,7 +131,7 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
                                 </select>
                             </p>
 
-                            <p>Balance Type</p>
+                            <p>Balance Type *</p>
                             <p>
                                 <select id="SelectBalanceType" name="BalanceType">
                                     <option value="">Please Select</option>
@@ -156,11 +154,45 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
                                 </select>
                             </p>
 
-                            <p>Image</p>
-                            <p><input type="file" id="UploadImage"></p>
+                            <p>Image (Maximum 16Mb)</p>
+                            <img src="" width="175px" height="175px" id="UploadedImage" alt="no image uploaded"/>
+                            <p><input type="file" id="UploadImage" onchange="PreviewImage()"></p>
 
-                            <p>Note</p>
-                            <p><input type="text" id="Note"></p>
+                            <p>Description Paragraph 1 *</p>
+                            <p><input type="text" id="ParagraphOne"></p>
+
+                            <p>Description Paragraph 2</p>
+                            <p><input type="text" id="ParagraphTwo"></p>
+
+                            <p>Description Paragraph 3</p>
+                            <p><input type="text" id="ParagraphThree"></p>
+
+                            <p>Maximum Seat Number *</p>
+                            <p><input type="number" id="MaxSeat"></p>
+
+                            <p>Register Due Date *</p>
+                            <p>
+                                <input class="InputDateYear" id="DueRegisterYear" maxlength="4"
+                                placeholder="yyyy">
+                                -
+                                <input class="InputDate" id="DueRegisterMonth" maxlength="2"
+                                placeholder="MM">
+                                -
+                                <input class="InputDate" id="DueRegisterDay" maxlength="2"
+                                placeholder="dd">
+                            </p>
+
+                            <p>Price($)</p>
+                            <p><input type="number" id="Price"></p>
+
+                            <p>Default Teacher</p>
+                            <p><input type="text" id="DefaultTeacher"></p>
+
+                            <p>Publish This Class?</p>
+                            <p>
+                                <input type="radio" name="IsPublished" value="0" checked/> No
+                                <input type="radio" name="IsPublished" value="1"/> Yes
+                            </p>
 
                             <button id="addRow" hidden="" style="display:none">Add Class Record</button>
                             <button id="EditRow" hidden="" style="display:none">Confirm Edition</button>

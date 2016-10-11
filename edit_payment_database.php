@@ -30,10 +30,10 @@ WHERE `ID`=?")){
     mysqli_stmt_bind_param($stmt, "ssssssssssss", $payername, $amountdollar, $cardtype, $checkno, $iscash, $studentname,
         $classID, $receivername, $note, $updater, $updatetime, $ID);
     if (!$stmt->execute()) {
-        echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+        echo "Execute failed: (" . $stmt->error. ") " . $stmt->error;
     }else {
         //printf("rows inserted: %d\n", mysqli_stmt_affected_rows($stmt));
-        echo "new payment record added successfully!";
+        echo "payment record updated successfully!";
     }
     mysqli_stmt_close($stmt);
     exit;

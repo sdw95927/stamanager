@@ -4,6 +4,7 @@
 //global var
 var $username;
 var ImageClass;
+var ImageToUpload;
 
 $(function () {
     $("#navmanagement").addClass("current");
@@ -52,81 +53,123 @@ function getusername() {
     xmlhttp.send();
 }
 
+//------- transfer image data to blob -------
+// function dataURItoBlob(dataURI) {
+//     // convert base64/URLEncoded data component to raw binary data held in a string
+//     var byteString;
+//     if (dataURI.split(',')[0].indexOf('base64') >= 0)
+//         byteString = atob(dataURI.split(',')[1]);
+//     else
+//         byteString = unescape(dataURI.split(',')[1]);
+//
+//     // separate out the mime component
+//     var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+//
+//     // write the bytes of the string to a typed array
+//     var ia = new Uint8Array(byteString.length);
+//     for (var i = 0; i < byteString.length; i++) {
+//         ia[i] = byteString.charCodeAt(i);
+//     }
+//
+//     return new Blob([ia], {type:mimeString});
+// }
+// 作者：陈兆龙
+// 链接：https://www.zhihu.com/question/31588622/answer/52792556
+//     来源：知乎
+// 著作权归作者所有，转载请联系作者获得授权。
+// var convertImgDataToBlob = function (base64Data) {
+//     var format = "image/jpeg";
+//     var base64 = base64Data;
+//     var code = window.atob(base64.split(",")[1]);
+//     var aBuffer = new window.ArrayBuffer(code.length);
+//     var uBuffer = new window.Uint8Array(aBuffer);
+//     for(var i = 0; i < code.length; i++){
+//         uBuffer[i] = code.charCodeAt(i) & 0xff ;
+//     }
+//     console.info([aBuffer]);
+//     console.info(uBuffer);
+//     console.info(uBuffer.buffer);
+//     console.info(uBuffer.buffer==aBuffer); //true
+//
+//     var blob=null;
+//     try{
+//         blob = new Blob([uBuffer], {type : format});
+//     }
+//     catch(e){
+//         window.BlobBuilder = window.BlobBuilder ||
+//             window.WebKitBlobBuilder ||
+//             window.MozBlobBuilder ||
+//             window.MSBlobBuilder;
+//         if(e.name == 'TypeError' && window.BlobBuilder){
+//             var bb = new window.BlobBuilder();
+//             bb.append(uBuffer.buffer);
+//             blob = bb.getBlob("image/jpeg");
+//
+//         }
+//         else if(e.name == "InvalidStateError"){
+//             blob = new Blob([aBuffer], {type : format});
+//         }
+//         else{
+//
+//         }
+//     }
+//     alert(blob.size);
+//     return blob;
+// };
+
 //------- for editing form -------
 function EnableEditing(id) {
     $.ajax(
         {
-            url: "search_payment_datatable.php",
+            url: "search_class_datatable.php",
             data: "ID=" + id,
             type: "POST",
             beforeSend: function () {
                 $('#loading_div').show();
-                //beforeSend 發送請求之前會執行的函式
             },
             success: function (msg) {
                 var result = msg.split("&&");
 
-                $("#PaymentID").val(id);
-                $("#PaymentCreateTime").val(result[9]);
+                $("#ID").val(id);
+                $("#OldID").val(id);
+                //0: Title
+                //1: Image (no image uploaded yet)
+                //2: ParagraphOne
+                //3: ParagraphTwo
+                //4: ParagraphThree
+                //5: MaxSeat
+                //6: DueRegister
+                //7: Price
+                //8: ClassType
+                //9: BalanceType
+                //10: DefaultTeacher
+                //11: IsPublished
+                $("#Title").val(result[0]);
+                $("#ParagraphOne").val(result[2]);
+                $("#ParagraphTwo").val(result[3]);
+                $("#ParagraphThree").val(result[4]);
+                $("#MaxSeat").val(result[5]);
+                $("#DueRegisterYear").val(result[6].split("-")[0]);
+                $("#DueRegisterMonth").val(result[6].split("-")[1]);
+                $("#DueRegisterDay").val(result[6].split("-")[2]);
+                $("#Price").val(result[7]);
+                document.getElementById("SelectClassType").value = result[8];
+                document.getElementById("SelectBalanceType").value = result[9];
+                $("#DefaultTeacher").val(result[10]);
 
-                //alert(result);
-                //0: payername
-                //1: amountdollar
-                //2: cardtype
-                //3: check No.
-                //4: is cash
-                //5: student name
-                //6: class ID
-                //7: receiver name
-                //8: note
-                //9: create time
-                $("#PayerName").val(result[0]);
-                $("#AmountDollar").val(result[1]);
-                //$("input[name=cardtype]:checked").val(); //2
-                //var $iscash = $("input[name=iscash]:checked").val(); //4
-                var cardtypes = document.getElementsByName('cardtype');
-                for (var i = 0; i < cardtypes.length; i++) {
-                    cardtypes[i].checked = false;
+                var mysrc = "data:image/jpeg;base64," + result[1];
+                var img = document.querySelector("#UploadedImage");
+                img.src = mysrc;
+                ImageToUpload = result[1];
+
+                var IsPublished = document.getElementsByName("IsPublished");
+                if (result[11]) {
+                    IsPublished[0].checked = false;
+                    IsPublished[1].checked = true;
+                } else {
+                    IsPublished[1].checked = false;
+                    IsPublished[0].checked = true;
                 }
-                var paymenttypes = document.getElementsByName('iscash');
-                var inputcheckno = "#InputCheckNo";
-                var selectcardtype = "#SelectCardType";
-
-                if (result[4] == 1) { //is cash;
-                    paymenttypes[0].checked = true;
-                    $(inputcheckno).hide();
-                    $(selectcardtype).hide();
-                } else if (result[3] == "") { //no check No.; is card
-                    paymenttypes[2].checked = true;
-                    switch (result[2]) {
-                        case "Debit":
-                            cardtypes[0].checked = true;
-                            break;
-                        case "Credit":
-                            cardtypes[1].checked = true;
-                            break;
-                        case "Discover":
-                            cardtypes[2].checked = true;
-                            break;
-                        case "Master":
-                            cardtypes[3].checked = true;
-                            break;
-                    }
-                    $(inputcheckno).hide();
-                    $(selectcardtype).show();
-                } else {//is check
-                    paymenttypes[1].checked = true;
-                    $("#CheckNo").val(result[3]);
-                    $(inputcheckno).show();
-                    $(selectcardtype).hide();
-                }
-                $("#StudentName").val(result[5]);
-
-                document.getElementById('SelectClassID').value = result[6];
-
-                $("#ReceiverName").val(result[7]);
-
-                $("#Note").val(result[8]);
 
                 $("#EditRow").show();
                 $("#addRow").hide();
@@ -145,6 +188,43 @@ function EnableEditing(id) {
     );
 }
 //------- end for editing form -------
+
+//------- preview image -------
+function PreviewImage() {
+    var file = document.getElementById("UploadImage").files[0];
+    var img = document.querySelector("#UploadedImage");
+
+    var reader = new FileReader();
+    //var reader1 = new FileReader();
+
+    reader.addEventListener("load", function () {
+        //alert("this is in preview function"+reader.result);
+        img.src = reader.result;
+        ImageToUpload = reader.result.split(",")[1];
+    }, false);
+
+    // reader1.addEventListener("load", function () {
+    //     alert("this is in load reader function"+reader1.result);
+    //     ImageToUpload = reader1.result;
+    // }, false);
+
+    if (file) {
+        reader.readAsDataURL(file);
+        //reader1.readAsBinaryString(file);
+    }
+    //
+    // if (!ImageToUpload.files[0]){
+    //     alert("no image uploaded");
+    // }else{
+    //     var file = ImageToUpload.files.item(0).getAsBinary();
+    //
+    // }
+    // img.src = ;
+    // img.width = 175;
+    // img.height = 175;
+    // img.alt = "no image uploaded";
+}
+//------- end of preview image ------
 
 //-------datatable funtion------
 function getimageclass(ID) {
@@ -308,6 +388,10 @@ function format(d) {
         '<td>' + d.MaxSeat + '</td>' +
         '</tr>' +
         '<tr>' +
+        '<td>Register Due Date:</td>' +
+        '<td>' + d.DueRegister + '</td>' +
+        '</tr>' +
+        '<tr>' +
         '<td>Price($):</td>' +
         '<td>' + d.Price + '</td>' +
         '</tr>' +
@@ -372,7 +456,7 @@ $(document).ready(function () {
         var row = table.row(tr);
         var ajaxresult = getimageclass(row.data().ID);
 
-        $.when(ajaxresult).then(function(){
+        $.when(ajaxresult).then(function () {
             if (row.child.isShown()) {
                 // This row is already open - close it
                 row.child.hide();
@@ -389,20 +473,52 @@ $(document).ready(function () {
 
     //--------add row-------
     var $add_row = $("#addRow");
-    getusername();
+    //getusername();
 
     $($add_row).on('click', function () {
         //alert($username);
-        var $payername = $("#PayerName").val();
-        var $amountdollar = $("#AmountDollar").val();
-        var $cardtype = $("input[name=cardtype]:checked").val();
-        var $checkno = $("#CheckNo").val();
-        var $iscash = $("input[name=iscash]:checked").val();
-        var $studentname = $("#StudentName").val();
-        //var $classID = $("#ClassID").val();
-        var $classID = $("select[name=ClassID]").val();
-        var $receivername = $("#ReceiverName").val();
-        var $note = $("#Note").val();
+        var $ID = $("#ID").val();
+        var $Title = $("#Title").val();
+        var $ClassType = $("select[name=ClassType]").val();
+        var $BalanceType = $("select[name=BalanceType]").val();
+
+        //for image
+        // var file = document.getElementById("UploadImage").files[0];
+        // var reader  = new FileReader();
+        // reader.addEventListener("load", function () {
+        //     alert("this is in preview function"+reader.result);
+        //     ImageToUpload = reader.result;
+        // }, false);
+        // reader.onload = function(){
+        //     alert("this is in onload function"+reader.result);
+        //     //alert("this is in onload function"+file.content);
+        //     //alert("this is in onload function"+reader);
+        //     ImageToUpload = reader.result;
+        // };
+        // reader.readAsBinaryString(file);
+
+        // alert("mioaji");
+        //reader.readAsDataURL(file);
+        // if (file) {
+        //     alert("this is in main function"+file);
+        //     //alert("this is in main function"+reader.result);
+        //     //alert("this is in main function"+reader);
+        // }
+        // alert("miaoji");
+        // var $Image = reader.result;
+        // ImageToUpload = convertImgDataToBlob(file);
+        // var ImageBlob = new Blob([file], { type: "image/png" });
+        // ImageToUpload = ImageBlob;
+        ImageToUpload = encodeURIComponent(ImageToUpload);
+
+        var $IsPublished = $("input[name=IsPublished]:checked").val();
+        var $ParagraphOne = $("#ParagraphOne").val();
+        var $ParagraphTwo = $("#ParagraphTwo").val();
+        var $ParagraphThree = $("#ParagraphThree").val();
+        var $MaxSeat = $("#MaxSeat").val();
+        var $DueRegister = $("#DueRegisterYear").val() + "-" + $("#DueRegisterMonth").val() + "-" + $("#DueRegisterDay").val();
+        var $Price = $("#Price").val();
+        var $DefaultTeacher = $("#DefaultTeacher").val();
         var currentdate = new Date();
         var currentmonth = currentdate.getMonth() + 1;
         var $datetime = currentdate.getFullYear() + "-" +
@@ -415,11 +531,12 @@ $(document).ready(function () {
         //add to database
         $.ajax(
             {
-                url: "insert_payment_database.php",
-                data: "payername=" + $payername + "&amountdollar=" + $amountdollar + "&cardtype=" + $cardtype +
-                "&checkno=" + $checkno + "&iscash=" + $iscash + "&studentname=" + $studentname + "&classID=" +
-                $classID + "&receivername=" + $receivername + "&note=" + $note + "&createtime=" + $datetime +
-                "&updater=" + $username + "&updatetime=" + "",
+                url: "insert_class_database.php",
+                data: "ID=" + $ID + "&Title=" + $Title + "&ClassType=" + $ClassType +
+                "&BalanceType=" + $BalanceType + "&Image=" + ImageToUpload + "&IsPublished=" + $IsPublished + "&ParagraphOne=" +
+                $ParagraphOne + "&ParagraphTwo=" + $ParagraphTwo + "&ParagraphThree=" + $ParagraphThree + "&MaxSeat=" +
+                $MaxSeat + "&DueRegister=" + $DueRegister + "&Price=" + $Price + "&DefaultTeacher=" + $DefaultTeacher +
+                "&CreateTime=" + $datetime + "&UpdateTime=" + $datetime,
                 type: "POST",
                 beforeSend: function () {
                     $('#loading_div').show();
@@ -464,30 +581,6 @@ $(document).ready(function () {
         $(showbutton).html('Open/Add new payment record');
     });
 
-    $('#IsCardTrue').on('click', function () {
-        $('#SelectCardType').show();
-        $('#CheckNo').val("");
-        $('#InputCheckNo').hide();
-    });
-
-    $('#IsCheckTrue').on('click', function () {
-        var cardtypes = document.getElementsByName('cardtype');
-        for (var i = 0; i < cardtypes.length; i++) {
-            cardtypes[i].checked = false;
-        }
-        $('#SelectCardType').hide();
-        $('#InputCheckNo').show();
-    });
-
-    $('#IsCashTrue').on('click', function () {
-        var cardtypes = document.getElementsByName('cardtype');
-        for (var i = 0; i < cardtypes.length; i++) {
-            cardtypes[i].checked = false;
-        }
-        $('#SelectCardType').hide();
-        $('#InputCheckNo').hide();
-    });
-
     $('#Reset').on('click', function () {
         $("#PayerName").val("");
         $("#AmountDollar").val("");
@@ -511,18 +604,20 @@ $(document).ready(function () {
     });
 
     $('#EditRow').on('click', function () {
-        //alert($username);
-        var $ID = $("#PaymentID").val();
-        var $payername = $("#PayerName").val();
-        var $amountdollar = $("#AmountDollar").val();
-        var $cardtype = $("input[name=cardtype]:checked").val();
-        var $checkno = $("#CheckNo").val();
-        var $iscash = $("input[name=iscash]:checked").val();
-        var $studentname = $("#StudentName").val();
-        //var $classID = $("#ClassID").val();
-        var $classID = $("select[name=ClassID]").val();
-        var $receivername = $("#ReceiverName").val();
-        var $note = $("#Note").val();
+        var $ID = $("#ID").val();
+        var $OldID = $("#OldID").val();
+        var $Title = $("#Title").val();
+        var $ClassType = $("select[name=ClassType]").val();
+        var $BalanceType = $("select[name=BalanceType]").val();
+        ImageToUpload = encodeURIComponent(ImageToUpload);
+        var $IsPublished = $("input[name=IsPublished]:checked").val();
+        var $ParagraphOne = $("#ParagraphOne").val();
+        var $ParagraphTwo = $("#ParagraphTwo").val();
+        var $ParagraphThree = $("#ParagraphThree").val();
+        var $MaxSeat = $("#MaxSeat").val();
+        var $DueRegister = $("#DueRegisterYear").val() + "-" + $("#DueRegisterMonth").val() + "-" + $("#DueRegisterDay").val();
+        var $Price = $("#Price").val();
+        var $DefaultTeacher = $("#DefaultTeacher").val();
         var currentdate = new Date();
         var currentmonth = currentdate.getMonth() + 1;
         var $datetime = currentdate.getFullYear() + "-" +
@@ -535,11 +630,12 @@ $(document).ready(function () {
         //add to database
         $.ajax(
             {
-                url: "edit_payment_database.php",
-                data: "payername=" + $payername + "&amountdollar=" + $amountdollar + "&cardtype=" + $cardtype +
-                "&checkno=" + $checkno + "&iscash=" + $iscash + "&studentname=" + $studentname + "&classID=" +
-                $classID + "&receivername=" + $receivername + "&note=" + $note + "&updater=" + $username +
-                "&updatetime=" + $datetime + "&ID=" + $ID,
+                url: "edit_class_database.php",
+                data: "ID=" + $ID + "&Title=" + $Title + "&ClassType=" + $ClassType +
+                "&BalanceType=" + $BalanceType + "&Image=" + ImageToUpload + "&IsPublished=" + $IsPublished + "&ParagraphOne=" +
+                $ParagraphOne + "&ParagraphTwo=" + $ParagraphTwo + "&ParagraphThree=" + $ParagraphThree + "&MaxSeat=" +
+                $MaxSeat + "&DueRegister=" + $DueRegister + "&Price=" + $Price + "&DefaultTeacher=" + $DefaultTeacher +
+                "&UpdateTime=" + $datetime + "&OldID=" + $OldID,
                 type: "POST",
                 beforeSend: function () {
                     $('#loading_div').show();

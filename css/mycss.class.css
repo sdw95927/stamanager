@@ -53,8 +53,30 @@ p, table {
     margin: auto;
 }
 
-.DivForm input[type=text],.DivForm select {
+.DivForm input[type=text], .DivForm input[type=number], .DivForm select {
     width: 100%;
+    padding: 6px 10px;
+    margin: 1px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 100%;
+}
+
+.InputDate {
+    width: 40px;
+    padding: 6px 10px;
+    margin: 1px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 100%;
+}
+
+.InputDateYear {
+    width: 47px;
     padding: 6px 10px;
     margin: 1px 0;
     display: inline-block;
