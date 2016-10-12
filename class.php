@@ -182,7 +182,7 @@ if (!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])) {
                                 placeholder="dd">
                             </p>
 
-                            <p>Price($)</p>
+                            <p>Price($) *</p>
                             <p><input type="number" id="Price"></p>
 
                             <p>Default Teacher</p>

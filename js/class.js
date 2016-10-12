@@ -582,25 +582,41 @@ $(document).ready(function () {
     });
 
     $('#Reset').on('click', function () {
-        $("#PayerName").val("");
-        $("#AmountDollar").val("");
-        var cardtypes = document.getElementsByName('cardtype');
-        for (var i = 0; i < cardtypes.length; i++) {
-            cardtypes[i].checked = false;
-        }
-        var paymenttypes = document.getElementsByName('iscash');
-        var inputcheckno = "#InputCheckNo";
-        var selectcardtype = "#SelectCardType";
-        paymenttypes[0].checked = true;
-        $(inputcheckno).hide();
-        $(selectcardtype).hide();
-        $("#CheckNo").val("");
-        $("#StudentName").val("");
-        $("select[name=ClassID]").val(""); //6
-        $("#ReceiverName").val("");
-        $("#Note").val("");
+        $("#ID").val("");
+        $("#OldID").val("");
+        $("#Title").val("");
+        $("#ParagraphOne").val("");
+        $("#ParagraphTwo").val("");
+        $("#ParagraphThree").val("");
+        $("#MaxSeat").val("");
+        $("#DueRegisterYear").val("");
+        $("#DueRegisterMonth").val("");
+        $("#DueRegisterDay").val("");
+        $("#Price").val("");
+        $("select[ID=SelectClassType]").val("");
+        $("select[ID=SelectBalanceType]").val("");
+        $("#DefaultTeacher").val("");
+
+        //var img = document.querySelector("#UploadedImage");
+        //var img = document.getElementById("UploadedImage");
+        //img.src = "";
+        //img.removeAttr('src');
+        $("#UploadedImage").removeAttr('src');
+        var img = document.querySelector("#UploadedImage");
+        img.src = "?123"; //force refresh image cache
+        ImageToUpload = "";
+        $("#UploadImage").val("");
+
+        var IsPublished = document.getElementsByName("IsPublished");
+        IsPublished[0].checked = true;
+        IsPublished[1].checked = false;
+
         $("#EditRow").hide();
         $("#addRow").show();
+
+        var AddOrEdit = "#AddOrEdit";
+        $(AddOrEdit).hide();
+        $(AddOrEdit).show();
     });
 
     $('#EditRow').on('click', function () {
