@@ -11,6 +11,7 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
 <html>
 <head>
     <title>Southlake Tutoring Academy Management Tool</title>
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
     <meta name="description" content="website description"/>
     <meta name="keywords" content="website keywords, website keywords"/>
     <meta http-equiv="content-type" content="text/html; charset=windows-1252"/>
@@ -80,7 +81,7 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
                             </div>
 
                             <!--    mytable    -->
-                            <button id="ShowAddOrEditForm">Add Payment record</button>
+                            <button id="ShowAddOrEditForm" class="ToClick">Add Payment record</button>
                             <hr/>
                             <div id="DivDatatable">
                                 <table id="paymenttable" class="display compact" width="100%">
@@ -126,7 +127,7 @@ if(!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])){
                         <!--        <form class="center">-->
                         <div class="DivForm" id="AddOrEdit" style="display:none">
                             <h4 class="center black">Payment Record</h4>
-                            <img id="Close" src="images/close1.png">
+                            <img id="Close" class="ToClick" src="images/close1.png">
                             <p><input id="PaymentID" style="display:none"></p>
                             <p><input id="PaymentCreateTime" style="display:none"></p>
 

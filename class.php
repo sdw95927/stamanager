@@ -75,7 +75,7 @@ if (!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])) {
                             </div>
 
                             <!--    mytable    -->
-                            <button id="ShowAddOrEditForm">Add class record</button>
+                            <button id="ShowAddOrEditForm" class="ToClick">Add class record</button>
                             <hr/>
                             <div id="DivDatatable">
                                 <table id="classtable" class="display" cellspacing="0" width="100%">
@@ -86,9 +86,9 @@ if (!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])) {
                                         <th>Title</th>
                                         <th>Type</th>
                                         <th>Balance Type</th>
-                                        <th>Is Published</th>
+                                        <th width="20px">Is Published</th>
                                         <th>Create Time</th>
-                                        <th width="30px">Action</th>
+                                        <th width="60px">Action</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -99,7 +99,7 @@ if (!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])) {
                         <!--        <form class="center">-->
                         <div class="DivForm" id="AddOrEdit" style="display:none">
                             <h4 class="center black">Class Record</h4>
-                            <img id="Close" src="images/close1.png">
+                            <img id="Close" class="ToClick" src="images/close1.png">
 
                             <p>Class ID *</p>
                             <p><input type="text" id="ID"></p>

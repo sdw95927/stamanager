@@ -461,3 +461,8 @@ ul img {
   border-radius: 8px;
   width:200px;
 }
+
+/*for cursor pointer*/
+.ToClick {
+  cursor:pointer;
+}

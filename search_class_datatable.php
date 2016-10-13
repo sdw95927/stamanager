@@ -74,7 +74,7 @@ if (!isset($_POST['ID'])) {
 
             echo "\"CreateTime\": \"$CreateTime\",\n";
             echo "\"UpdateTime\": \"$UpdateTime\",\n";
-            echo "\"Action\": \"<button id='$ID' onclick='EnableEditing($ID)'>edit</button>/<button class='publish'>publish</button>\"\n";
+            echo "\"Action\": \"<button id='$ID' class='edit' onclick='EnableEditing($ID)'>edit</button>/<button class='publish'>publish</button>\"\n";
             if ($current_row == $rows) {
                 echo "}\n";
             } else {

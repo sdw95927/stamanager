@@ -36,7 +36,7 @@ if (!isset($_POST['ID'])){
             echo "\"$CreateTime\",\n";
             echo "\"$UpdaterName\",\n";
             echo "\"$UpdateTime\",\n";
-            echo "\"<button id='$ID' onclick='EnableEditing($ID)'>edit</button>\"\n";
+            echo "\"<button id='$ID' class='ToClick' onclick='EnableEditing($ID)'>edit</button>\"\n";
             //echo "\"<button id='$ID'>edit</button>\"";
             if ($current_row == $rows){
                 echo "]\n";
