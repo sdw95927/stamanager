@@ -8,6 +8,9 @@ tr.shown td.details-control {
     background: url('../images/collapse_1.png') no-repeat center center;
     background-size: 30px 30px;
 }
+td.publish {
+    cursor: pointer;
+}
 
 /*end of datatable*/
 

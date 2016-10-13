@@ -445,7 +445,10 @@ $(document).ready(function () {
             {"data": "BalanceType"},
             {"data": "IsPublished"},
             {"data": "CreateTime"},
-            {"data": "Action"}
+            {
+                "data": "Action",
+                "orderable": false
+            }
         ],
         "order": [[1, 'asc']]
     });
@@ -674,6 +677,38 @@ $(document).ready(function () {
                 }
             }
         );
-        //------- end of for form -------
     });
+    //------- end of for form -------
+
+    //------- for publish class -------
+    //var publish = "td.publish";
+    $(document).on('click', '.publish', function () {
+        var tr = $(this).closest('tr');
+        alert(tr);
+        var row = table.row(tr);
+        id = row.data().ID;
+        alert(id);
+        $.ajax(
+            {
+                url: "publish_class_database.php",
+                data: "ID=" + id,
+                type: "POST",
+                beforeSend: function () {
+                    $('#loading_div').show();
+                },
+                success: function (msg) {
+                    alert(msg);
+                    table.ajax.reload();
+                    $('#loading_div').hide();
+                },
+                error: function (xhr) {
+                    alert('Ajax request alert');
+                    $('#loading_div').hide();
+                },
+                complete: function () {
+                }
+            }
+        );
+    });
+    //------- end of publish class -------
 });
