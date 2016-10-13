@@ -10,6 +10,8 @@ if (!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])) {
 <html>
 <head>
     <title>Southlake Tutoring Academy Management Tool</title>
+    <!-- added to avoid "Object doesn't support this property or method" problem   -->
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
     <meta name="description" content="website description"/>
     <meta name="keywords" content="website keywords, website keywords"/>
     <meta http-equiv="content-type" content="text/html; charset=windows-1252"/>

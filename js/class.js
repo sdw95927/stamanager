@@ -684,10 +684,10 @@ $(document).ready(function () {
     //var publish = "td.publish";
     $(document).on('click', '.publish', function () {
         var tr = $(this).closest('tr');
-        alert(tr);
+        //alert(tr);
         var row = table.row(tr);
         id = row.data().ID;
-        alert(id);
+        //alert(id);
         $.ajax(
             {
                 url: "publish_class_database.php",
