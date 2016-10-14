@@ -4,6 +4,7 @@
 <head>
 
     <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
 
     <title>Southlake Tutoring Academy</title>
 

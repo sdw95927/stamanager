@@ -1,0 +1,98 @@
+tfoot input {
+    width: 100%;
+    padding: 1px;
+    box-sizing: border-box;
+}
+
+p, table {
+    font-family: Arial;
+}
+
+.container, .black {
+    color: #000000;
+}
+
+.center{
+    text-align: center;
+    margin: auto;
+}
+
+.DivForm input[type=text], .DivForm input[type=number], .DivForm select {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 1px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 100%;
+}
+
+#EmailContent {
+    width: 100%;
+    height: 150px;
+    padding: 6px 10px;
+    margin: 1px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 100%;
+}
+
+.InputDate {
+    width: 40px;
+    padding: 6px 10px;
+    margin: 1px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 100%;
+}
+
+.InputDateYear {
+    width: 47px;
+    padding: 6px 10px;
+    margin: 1px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 100%;
+}
+
+#SendEmail, #Reset {
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    width: 100%;
+    background-color: #e8e8e8;
+    /*color: white;*/
+    padding: 6px 10px;
+    margin: 5px 0;
+    /*border: none;*/
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 100%;
+}
+
+#SendEmail:hover, #Reset:hover {
+    background-color: white;
+}
+
+.DivForm, .DivTable {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.DivForm p{
+    /*color: #3BB69E;*/
+    /*margin: 0;*/
+    line-height:0.5;
+}
+
+#loading_div {
+    position: relative;
+    bottom: 500px;
+}

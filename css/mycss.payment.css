@@ -8,6 +8,20 @@ p, table {
     font-family: Arial;
 }
 
+.edit{
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    /*margin: 2px 0;*/
+    background-color: #e8e8e8;
+    /*border: 1px solid black;*/
+    /*padding: 6px 10px;*/
+    border-radius: 4px;
+}
+
+.edit:hover{
+    background-color: white;
+}
+
 #paymenttable {
     font-family: Arial;
     font-size: 85%;

@@ -60,7 +60,7 @@
                     <button class="bigbutton">Account Management</button>
                     <a href="payment.php"><button class="bigbutton">Payment Management</button></a>
                     <button class="bigbutton">Student Management</button><br><br>
-                    <button class="bigbutton">Email Management</button>
+                    <a href="email.php"><button class="bigbutton">Email Management</button></a>
                     <button class="bigbutton">Teacher Management</button><br><br>
                 </div><!--close form_settings-->
             </div><!--close content_item-->
