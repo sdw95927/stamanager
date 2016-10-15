@@ -29,6 +29,9 @@ if (!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])) {
     <script type="text/javascript" charset="utf8"
             src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="js/email.js"></script>
+
+    <!--  for autocomplete  -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
 <body>
@@ -74,7 +77,7 @@ if (!isset($_SESSION['stamgaccount']) || !isset($_SESSION['stamgrole'])) {
                             <div class="DivForm" id="EmailForm">
                                 <h4 class="center black">Email Form</h4>
                                 <br/>
-                                
+
                                 <p>Send To * (Input name to search, seperate multiple addresses by ;)</p>
                                 <p>
                                     <select id="SelectClass" name="ClassID" onchange="AddClassAddress(this.value)">

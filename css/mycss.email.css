@@ -96,3 +96,23 @@ p, table {
     position: relative;
     bottom: 500px;
 }
+
+/*for autocomplete*/
+.ui-autocomplete {
+    padding: 10px;
+    max-height: 100px;
+    width: 500px;
+    color: #000000;
+    background: #FFFFFF;
+    border: 1px solid #ccc;
+    overflow-y: auto;
+    /* 防止水平滚动条 */
+    overflow-x: hidden;
+}
+/* IE 6 不支持 max-height
+ * 我们使用 height 代替，但是这会强制菜单总是显示为那个高度
+ */
+* html .ui-autocomplete {
+    height: 100px;
+}
+/*end for autocomplete*/

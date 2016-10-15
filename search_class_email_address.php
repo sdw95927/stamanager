@@ -14,12 +14,12 @@ if ($stmt) {
     $stmt->store_result();
     $stmt->bind_result($StudentID);
     while (mysqli_stmt_fetch($stmt)) {
-        $stmt2 = mysqli_prepare($mysqli, "SELECT `AccountID` FROM `staStudent` WHERE `ID`=?");
+        $stmt2 = mysqli_prepare($mysqli, "SELECT `AccountID`,`Name` FROM `staStudent` WHERE `ID`=?");
         if ($stmt2){
             mysqli_stmt_bind_param($stmt2, "s", $StudentID);
             mysqli_stmt_execute($stmt2);
             $stmt2->store_result();
-            $stmt2->bind_result($AccountID);
+            $stmt2->bind_result($AccountID, $Name);
             mysqli_stmt_fetch($stmt2);
             $stmt2->close();
 
@@ -30,7 +30,7 @@ if ($stmt) {
             $stmt3->bind_result($Email);
             mysqli_stmt_fetch($stmt3);
             $stmt3->close();
-            echo $Email . ";";
+            echo "'".$Name."'".$Email . ";";
         }else{
             die(mysqli_error($mysqli));
         }

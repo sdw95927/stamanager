@@ -50,13 +50,18 @@ $mail->setFrom($EmailFrom, $SendFrom);
 //check format
 $SendTo = explode(';', $_POST['SendTo']);
 $length = count($SendTo);
+$reallength = $length;
 for($i = 0; $i < $length; $i++){
     if ($SendTo[$i] == "") {
+        $reallength = $reallength - 1;
         continue;
     }
+    //    $SendTo[$i] = preg_replace('/"(.*)/"', "", $SendTo[$i]);
+    $SendTo[$i] = explode('\'', $SendTo[$i])[count(explode('\'', $SendTo[$i]))-1];
     if (strpos($SendTo[$i], "@") == FALSE || strpos($SendTo[$i], ".") == FALSE || (strlen($SendTo[$i]) - strpos($SendTo[$i], "@")) <= 3 ||
         strpos($SendTo[$i], "'") != FALSE
     ) {
+        echo "mioaji".$SendTo[$i]."miaoji";
         echo "invalid email address!";
         exit;
     }
@@ -90,7 +95,7 @@ if (!$mail->send()) {
     echo "Failed to send email with error:".$mail->ErrorInfo;
     exit;
 } else {
-    echo "Successfully send the email to ".$length. "receiver(s)!";
+    echo "Successfully send the email to ".$reallength. "receiver(s)!";
     exit;
 }
 ?>
