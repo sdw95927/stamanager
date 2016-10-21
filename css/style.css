@@ -346,12 +346,12 @@ ul img {
 /*==================================================
  * Two columns
  * ===============================================*/
-#col-left {
+#col-left, #col-left-1, #col-left-2, #col-left-3 {
   float:left;
   width:210px;
 }
 
-#col-right {
+#col-right, #col-right-1, #col-right-2, #col-right-3 {
   float:right;
   width:610px;
   box-shadow: 5px 5px 5px #888;
@@ -361,7 +361,7 @@ ul img {
   margin:10px 0 30px 0;
 
 }
-#col-right h3 {
+#col-right h3, #col-right-1 h3, #col-right-2 h3, #col-right-3 h3 {
   #padding: 0 0 0 200px ;
 }
 
