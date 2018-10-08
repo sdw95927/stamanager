@@ -6,7 +6,7 @@ A website for a school.
 
 * Provide course information with database support.
 
-* Online E-mail system
+* Online E-mail system.
 
 * Log-in system. 
 
